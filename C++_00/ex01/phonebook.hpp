@@ -1,13 +1,13 @@
 #ifndef PHONEBOOK_H
 # define PHONEBOOK_H
 
-#include <string>
 #include "contact.hpp"
 
 class PhoneBook
 {
     private:
         int     index;
+        int     size;
         Contact contacts[8];
 
     public:
@@ -15,10 +15,14 @@ class PhoneBook
         ~PhoneBook();
 
         void    setIndex();
+        void    setSize();
         int     getIndex();
-        void    incrementIndex();
-        void    addContact(Contact contact);
-        Contact    searchContact(int idx);
+        int     getSize();
+        void    addContact();
+        void    getContact();
+        std::string getInfo(std::string prompt);
+        static std::string formatColumn(const std::string text, int width);
+        void    displayContacts();
 };
 
 #endif
