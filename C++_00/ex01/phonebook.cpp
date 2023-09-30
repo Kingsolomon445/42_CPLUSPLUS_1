@@ -1,31 +1,12 @@
 #include "phonebook.hpp"
 
-PhoneBook::PhoneBook()
-{
-    
-}
+//CONSTRUCTOR
+PhoneBook::PhoneBook () : _size(0), _index(0){ }
+//DESTRUCTOR
+PhoneBook::~PhoneBook(){ }
 
-PhoneBook::~PhoneBook() {}
 
-int PhoneBook::getIndex()
-{
-    return index;
-}
-int PhoneBook::getSize()
-{
-    return size;
-}
-
-void    PhoneBook::setIndex()
-{
-    index = 0;
-}
-
-void    PhoneBook::setSize()
-{
-    size = 0;
-}
-
+// STATIC FUNCTIONS DEFINITIONS
 std::string PhoneBook::getInfo(std::string prompt)
 {
     std::string info;
@@ -42,6 +23,26 @@ std::string PhoneBook::getInfo(std::string prompt)
         return getInfo(prompt);
     }
     return info;
+}
+
+std::string PhoneBook::formatColumn(const std::string text, int width)
+{
+    if ((int)text.length() > width)
+        return text.substr(0, width - 1) + ".";
+    else
+    {
+        std::stringstream ss;
+        ss << std::right << std::setw(width) << text;
+        return ss.str();
+    }
+}
+
+
+
+// MEMBER FUNCTIONS DEFINITIONS
+int PhoneBook::getSize()
+{
+    return _size;
 }
 
 void    PhoneBook::addContact()
@@ -63,14 +64,14 @@ void    PhoneBook::addContact()
     contact.setNickname(nickName);
     contact.setPhoneNumber(phoneNumber);
     contact.setDarkestSecret(darkestSecret);
-    contact.setIndex(index);
-    this->contacts[index] = contact;
+    contact.setIndex(_index);
+    _contacts[_index] = contact;
     std::cout << "Sucessfully added new contact" << std::endl;
-    index++;
-    if (index == 8)
-        PhoneBook::setIndex();
-    if (size < 8)
-        size++;
+    _index++;
+    if (_index == 8)
+        _index = 0;
+    if (_size < 8)
+        _size++;
 }
 
 
@@ -85,44 +86,32 @@ void    PhoneBook::getContact()
             if (!std::isdigit(info[i]))
             {
                 std::cout << "Index must be in digits!" << std::endl;
-                this->getContact();
+                return getContact();
             }
         }
     try
     {
         idx = std::stoi(info);
-        if (idx < 0 || idx >= size)
-            throw std::out_of_range("Please enter a number in range 0 - " + std::to_string(size));
+        if (idx < 0 || idx >= _size)
+            throw std::out_of_range("Please enter a number in range 0 - " + std::to_string(_size - 1));
     } 
     catch (const std::invalid_argument& e) 
     {
         std::cerr << "Invalid input: " << e.what() << std::endl;
-        this->getContact();
+        return getContact();
     }
     catch (const std::out_of_range& e)
     {
         std::cerr << "Out of range: " << e.what() << std::endl;
-        this->getContact();
+        return getContact();
     }
     std::cout << "Contact:";
-    std::cout << "First Name:" << contacts[idx].getFirstName() << std::endl;
-    std::cout << "Last Name:" << contacts[idx].getLastName() << std::endl;
-    std::cout << "Nick Name:" << contacts[idx].getNickName() << std::endl;
-    std::cout << "Phone Number:" << contacts[idx].getFirstName() << std::endl;
-    std::cout << "Darkest Secret:" << contacts[idx].getFirstName() << std::endl;
+    std::cout << "First Name:" << _contacts[idx].getFirstName() << std::endl;
+    std::cout << "Last Name:" << _contacts[idx].getLastName() << std::endl;
+    std::cout << "Nick Name:" << _contacts[idx].getNickName() << std::endl;
+    std::cout << "Phone Number:" << _contacts[idx].getFirstName() << std::endl;
+    std::cout << "Darkest Secret:" << _contacts[idx].getFirstName() << std::endl;
     
-}
-
-std::string PhoneBook::formatColumn(const std::string text, int width)
-{
-    if ((int)text.length() > width)
-        return text.substr(0, width - 1) + ".";
-    else
-    {
-        std::stringstream ss;
-        ss << std::right << std::setw(width) << text;
-        return ss.str();
-    }
 }
 
 void    PhoneBook::displayContacts()
@@ -140,15 +129,15 @@ void    PhoneBook::displayContacts()
               << "|" << this->formatColumn(col3, 10)
               << "|" << this->formatColumn(col4, 10) << "|" << std::endl;
     std::cout << line << std::endl;
-    if (index == 0)
-        std::cout << "|" << "There are no contacts to display" << "|" << std::endl;
-    for (int i = 0; i < size; i++)
+    if (_size == 0)
+        std::cout << "|" << formatColumn("There are no contacts to display", 43) << "|" << std::endl;
+    for (int i = 0; i < _size; i++)
     {
-        contact = contacts[i];
-        std::cout << "|" << this->formatColumn(std::to_string(contact.getIndex()), 10)
-              << "|" << this->formatColumn(contact.getFirstName(), 10)
-              << "|" << this->formatColumn(contact.getLastName(), 10)
-              << "|" << this->formatColumn(contact.getNickName(), 10) << "|" << std::endl;
+        contact = _contacts[i];
+        std::cout << "|" << formatColumn(std::to_string(contact.getIndex()), 10)
+              << "|" << formatColumn(contact.getFirstName(), 10)
+              << "|" << formatColumn(contact.getLastName(), 10)
+              << "|" << formatColumn(contact.getNickName(), 10) << "|" << std::endl;
     }
     std::cout << line << std::endl;
 }

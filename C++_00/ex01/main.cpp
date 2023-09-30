@@ -1,5 +1,4 @@
 #include "phonebook.hpp"
-#include "contact.hpp"
 
 static std::string    getAction()
 {
@@ -25,7 +24,6 @@ int main(void)
     Contact contact;
     std::string action;
 
-    phonebook.setIndex();
     std::cout << "Welcome to My Awesome Phonebook" << std::endl;
     std::cout << "Available options:  ADD,   SEARCH,   EXIT" << std::endl;
     while (true)
@@ -44,6 +42,6 @@ int main(void)
         else
             std::cout << "Invalid Option!" << std::endl;
     }
-    std::cout <<"Awesome PhoneBook Closed";
+    std::cout << "Awesome PhoneBook Closed" << std::endl;
     return (0);
 }

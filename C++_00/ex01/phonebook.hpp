@@ -5,24 +5,25 @@
 
 class PhoneBook
 {
-    private:
-        int     index;
-        int     size;
-        Contact contacts[8];
-
     public:
         PhoneBook();
         ~PhoneBook();
 
-        void    setIndex();
-        void    setSize();
-        int     getIndex();
+        int     _size;
+
         int     getSize();
         void    addContact();
         void    getContact();
-        std::string getInfo(std::string prompt);
-        static std::string formatColumn(const std::string text, int width);
         void    displayContacts();
+
+
+    private:
+        int     _index;
+        Contact _contacts[8];
+
+        static std::string getInfo(std::string prompt);
+        static std::string formatColumn(const std::string text, int width);
+
 };
 
 #endif
