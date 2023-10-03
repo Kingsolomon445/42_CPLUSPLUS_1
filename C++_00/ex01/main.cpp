@@ -1,21 +1,24 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 static std::string    getAction()
 {
     std::string action;
-    std::string cleanedActionStr("");
 
-    std::cout << "Awesome PhoneBook> ";
-    std::getline(std::cin, action);
+    if (std::cin.eof() != 1)
+        std::cout << "Awesome PhoneBook> ";
+    if (!std::getline(std::cin, action) && std::cin.eof())
+    {
+        std::cin.clear();
+        std::cin.ignore();
+        return ("EXIT");
+    }
     while (!action.empty() && (action[0] == ' ' || action[0] == '\t' || action[0] == '\n'))
         action.erase(0, 1);
-    while (!action.empty() && (action.back() == ' ' || action.back() == '\t' || action.back() == '\n'))
-        action.pop_back();
+    while (!action.empty() && (action[action.size() - 1] == ' ' || action[action.size() - 1] == '\t' || action[action.size() - 1] == '\n'))
+        action.erase(action.size() - 1);
     if (action.empty())
         return getAction();
-    for (int i = 0; i < (int)action.size() ; ++i)
-        cleanedActionStr.push_back(toupper(action[i]));
-    return (cleanedActionStr);
+    return (action);
 }
 
 int main(void)
@@ -42,6 +45,5 @@ int main(void)
         else
             std::cout << "Invalid Option!" << std::endl;
     }
-    std::cout << "Awesome PhoneBook Closed" << std::endl;
     return (0);
 }

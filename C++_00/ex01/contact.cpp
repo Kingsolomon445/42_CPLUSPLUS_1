@@ -1,71 +1,65 @@
-#include "contact.hpp"
+#include "Contact.hpp"
 
-Contact::Contact()
-{
+Contact::Contact() {}
 
-}
-
-Contact::~Contact()
-{
-    
-}
+Contact::~Contact() {}
 
 std::string Contact::getFirstName()
 {
-    return this->firstName;
+    return _firstName;
 }
 
 std::string Contact::getLastName()
 {
-    return this->lastName;
+    return _lastName;
 }
 
 std::string Contact::getNickName()
 {
-    return this->nickName;
+    return _nickName;
 }
 
 std::string Contact::getPhoneNumber()
 {
-    return this->phoneNumber;
+    return _phoneNumber;
 }
 
 std::string Contact::getDarkestSecret()
 {
-    return this->darkestSecret;
+    return _darkestSecret;
 }
 
 int Contact::getIndex()
 {
-    return this->index;
+    return _index;
 }
 
 void    Contact::setFirstName(std::string name)
 {
-    this->firstName = name;
+    _firstName = name;
 }
 
 void    Contact::setLastName(std::string name)
 {
-    this->lastName = name;
+    _lastName = name;
 }
 
 void    Contact::setNickname(std::string name)
 {
-    this->nickName = name;
+    _nickName = name;
 }
 
 void    Contact::setPhoneNumber(std::string number)
 {
-    this->phoneNumber = number;
+    _phoneNumber = number;
 }
 
 void    Contact::setDarkestSecret(std::string secret)
 {
-    this->darkestSecret = secret;
+    _darkestSecret = secret;
 }
 
 void    Contact::setIndex(int idx)
 {
-    this->index = idx;
+    _index = idx;
 }

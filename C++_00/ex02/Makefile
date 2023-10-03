@@ -1,16 +1,24 @@
-CC = g++
+
+CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.o)
-TARGET = account
+NAME = account
 
-all: $(TARGET)
+all: $(NAME)
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(TARGET) $(OBJS)
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

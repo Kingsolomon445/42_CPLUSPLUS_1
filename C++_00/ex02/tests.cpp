@@ -11,19 +11,10 @@
 #include <algorithm>
 #include <functional>
 #include "Account.hpp"
-#include <fstream> // Include the file stream library
-#include <iostream>
 
 
 int		main( void ) {
 
-		// Open a log file for writing
-    std::ofstream logFile("log.txt");
-
-    // Redirect standard output to the log file
-    std::streambuf* coutbuf = std::cout.rdbuf(); // Save the console output buffer
-    std::cout.rdbuf(logFile.rdbuf()); // Redirect cout to the log file
-	
 	typedef std::vector<Account::t>							  accounts_t;
 	typedef std::vector<int>								  ints_t;
 	typedef std::pair<accounts_t::iterator, ints_t::iterator> acc_int_t;
@@ -46,9 +37,8 @@ int		main( void ) {
 	ints_t::iterator	wit_begin	= withdrawals.begin();
 	ints_t::iterator	wit_end		= withdrawals.end();
 
-
 	Account::displayAccountsInfos();
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, dep_begin );
 		  it.first != acc_end && it.second != dep_end;
@@ -58,7 +48,7 @@ int		main( void ) {
 	}
 
 	Account::displayAccountsInfos();
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, wit_begin );
 		  it.first != acc_end && it.second != wit_end;
@@ -68,14 +58,7 @@ int		main( void ) {
 	}
 
 	Account::displayAccountsInfos();
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
-
-	// Close the log file
-    logFile.close();
-
-    // Restore standard output
-    std::cout.rdbuf(coutbuf);
-
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	return 0;
 }
@@ -87,7 +70,3 @@ int		main( void ) {
 // -*- mode: c++-mode;                                                       -*-
 // -*- fill-column: 75; comment-column: 75;                                  -*-
 // ************************************************************************** //
-
-
-
-

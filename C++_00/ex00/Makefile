@@ -1,18 +1,23 @@
-
 CC = c++
- 
-  # compiler flags:
-  #  -g     - this flag adds debugging information to the executable file
-  #  -Wall  - this flag is used to turn on most compiler warnings
-CFLAGS  = -Wall -Wextra -Werror -std=c++98
- 
-  # The build target 
-TARGET = megaphone
- 
-all: $(TARGET)
- 
-$(TARGET): $(TARGET).cpp
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
- 
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS := megaphone.cpp
+OBJS := $(SRCS:.cpp=.o)
+NAME = megaphone
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	$(RM) $(TARGET)
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
