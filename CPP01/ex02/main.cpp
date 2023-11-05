@@ -6,8 +6,14 @@ int main(void)
     std::string *stringPtr = &stringVar;
     std::string &stringRef = stringVar;
 
-    std::cout << stringVar << std::endl;
+    //Displaying Address
+    std::cout << &stringVar << std::endl;
     std::cout << stringPtr << std::endl;
+    std::cout << &stringRef << std::endl;
+
+    //Displaying Content
+    std::cout << stringVar << std::endl;
+    std::cout << *stringPtr << std::endl;
     std::cout << stringRef << std::endl;
 
     return (0);
