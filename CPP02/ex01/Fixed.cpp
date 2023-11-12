@@ -1,27 +1,26 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed()
+const int Fixed::_fractionalBits = 8;
+
+//CONSTRCUTORS AND DESTRUCTORS
+Fixed::Fixed(): _fVal(0)
 {
     std::cout << "Default contructor called" << std::endl;
-    _fVal = 0;
 }
 
-Fixed::Fixed(const Fixed &f)
+Fixed::Fixed(const Fixed &other): _fVal(other._fVal)
 {
     std::cout << "Copy contructor called" << std::endl;
-    _fVal = f._fVal;
 }
 
-Fixed::Fixed(const int val)
+Fixed::Fixed(const int val): _fVal(val * (1 << _fractionalBits))
 {
     std::cout << "Int contructor called" << std::endl;
-    _fVal = val * (1 << _fractionalBits);
 }
 
-Fixed::Fixed(const float val)
+Fixed::Fixed(const float val): _fVal(roundf(val * (1 << _fractionalBits)))
 {
     std::cout << "Float contructor called" << std::endl;
-    _fVal = roundf(val * (1 << _fractionalBits));
 }
 
 Fixed::~Fixed()
@@ -29,10 +28,13 @@ Fixed::~Fixed()
     std::cout << "Destructor called" << std::endl;
 }
 
-void Fixed::operator=(const Fixed &f)
+
+//OPERATORS OVERLOADING
+Fixed &Fixed::operator=(const Fixed &other)
 {
     std::cout << "Copy assignment operator called" << std::endl;
-    _fVal = f._fVal;
+    _fVal = other.getRawBits();
+    return *this;
 }
 
 std::ostream& operator <<(std::ostream &stream, const Fixed &f)
@@ -42,6 +44,8 @@ std::ostream& operator <<(std::ostream &stream, const Fixed &f)
 }
 
 
+
+//CONVERSION MEMBER FUNCTIONS
 int Fixed::toInt() const
 {
     return _fVal >> _fractionalBits;
@@ -50,4 +54,18 @@ int Fixed::toInt() const
 float Fixed::toFloat() const
 {
     return (float)_fVal / (float)(1 << _fractionalBits);
+}
+
+
+//GETTERS AND SETTERS
+int Fixed::getRawBits() const
+{
+    std::cout << "getRawBits member function called" << std::endl;
+    return _fVal;
+}
+
+void Fixed::setRawBits(int const raw)
+{
+    std::cout << "setRawBits member function called" << std::endl;
+    _fVal = raw;
 }

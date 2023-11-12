@@ -1,20 +1,25 @@
 #include "Fixed.hpp"
 
+const int Fixed::_fractionalBits = 8;
+
+
+//CONSTRUCTORS AND DESTRUCTORS
 Fixed::Fixed()
 {
-    _fVal = 0;
     std::cout << "Default constructor called" << std::endl;
+    _fVal = 0;
 }
 
-Fixed::Fixed(Fixed &f): _fVal(f._fVal)
+Fixed::Fixed(Fixed &other): _fVal(other._fVal)
 {
     std::cout << "Copy constructor called" << std::endl;
 }
 
-void Fixed::operator=(const Fixed &f)
+Fixed &Fixed::operator=(const Fixed &other)
 {
-    _fVal = f._fVal;
     std::cout << "Copy assignment operator called" << std::endl;
+    _fVal = other._fVal;
+    return *this;
 }
 
 Fixed::~Fixed()
@@ -22,6 +27,8 @@ Fixed::~Fixed()
     std::cout << "Destructor called" << std::endl;
 }
 
+
+//GETTERS AND SETTERS
 int Fixed::getRawBits() const
 {
     std::cout << "getRawBits member function called" << std::endl;
@@ -30,6 +37,6 @@ int Fixed::getRawBits() const
 
 void Fixed::setRawBits(int const raw)
 {
-    _fVal = raw;
     std::cout << "setRawBits member function called" << std::endl;
+    _fVal = raw;
 }
