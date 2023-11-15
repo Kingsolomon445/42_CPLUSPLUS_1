@@ -1,12 +1,12 @@
 #include "ClapTrap.hpp"
 
 //CONSTRCUTORS AND DESTRUCTORS
-ClapTrap::ClapTrap(): _hitP(100), _energyP(50), _attackD(20), _name("nameless"), _type("ClavTrap")
+ClapTrap::ClapTrap(): _hitP(100), _energyP(50), _attackD(30), _name("nameless"), _type("ClavTrap")
 {
     std::cout << "ClapTrap default constructor has been called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name): _hitP(100), _energyP(50), _attackD(20), _name(name), _type("ClavTrap")
+ClapTrap::ClapTrap(std::string name): _hitP(100), _energyP(50), _attackD(30), _name(name), _type("ClavTrap")
 {
     std::cout << "ClapTrap Overloaded constructor has been called" << std::endl;
 }
@@ -28,6 +28,7 @@ ClapTrap & ClapTrap::operator=(const ClapTrap &other)
     _energyP = other._energyP;
     _attackD = other._attackD;
     _name = other._name;
+    _type = other._type;
     return *this;
 }
 
@@ -78,7 +79,7 @@ void ClapTrap::beRepaired(unsigned int amount)
     }
 }
 
-void ClapTrap::showStats()
+void ClapTrap::showStats() const
 {
     std::cout << _type << " " << _name << " has " <<  _hitP << " hit points and " << _energyP << " energy points left!" << std::endl;
 }

@@ -1,4 +1,5 @@
 #include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main(void)
 {
@@ -12,3 +13,4 @@ int main(void)
     
     return (0);
 }
+

@@ -28,6 +28,7 @@ ClapTrap & ClapTrap::operator=(const ClapTrap &other)
     _energyP = other._energyP;
     _attackD = other._attackD;
     _name = other._name;
+    _type = other._type;
     return *this;
 }
 

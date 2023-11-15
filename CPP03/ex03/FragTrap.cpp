@@ -5,12 +5,14 @@ FragTrap::FragTrap(): ClapTrap()
 {
     std::cout << "FragTrap default constructor has been called!" << std::endl;
     _type = "FragTrap";
+    _name = "nameless";
 }
 
 FragTrap::FragTrap(std::string name): ClapTrap(name)
 {
     std::cout << "FragTrap overloaded constructor has been called!" << std::endl;
     _type = "FragTrap";
+    _name = name;
 }
 
 FragTrap::FragTrap(const FragTrap & other)

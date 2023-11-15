@@ -4,11 +4,13 @@
 ScavTrap::ScavTrap(): ClapTrap() {
     std::cout << "ScavTrap default constructor has been called" << std::endl;
     _type = "ScavTrap";
+    _name = "nameless";
 }
 
 ScavTrap::ScavTrap(std::string name): ClapTrap(name) {
     std::cout << "ScavTrap overloaded constructor has been created" << std::endl;
     _type = "ScavTrap";
+    _name = name;
 }
 
 ScavTrap::ScavTrap(const ScavTrap & other)
