@@ -13,7 +13,7 @@ FragTrap::FragTrap(std::string name): ClapTrap(name)
     _name = name;
 }
 
-FragTrap::FragTrap(const FragTrap & other)
+FragTrap::FragTrap(const FragTrap & other): ClapTrap(other._name)
 {
     std::cout << "FragTrap copy constructor has been called!" << std::endl;
     *this = other;
