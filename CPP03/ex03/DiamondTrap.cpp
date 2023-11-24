@@ -38,15 +38,6 @@ DiamondTrap & DiamondTrap::operator=(const DiamondTrap &other)
 
 //MEMBER FUNCTION
 
-void DiamondTrap::attack(const std::string & target)
-{
-    ScavTrap::attack(target);
-}
-void DiamondTrap::showStats() const
-{
-    std::cout << "DiamondTrap " << _name << " has " <<  _hitP << " hit points and " << _energyP << " energy points left!" << std::endl;
-}
-
 void DiamondTrap::whoAmI()
 {
     std::cout << "My DiamondTrap name is: " << _name << std::endl;
