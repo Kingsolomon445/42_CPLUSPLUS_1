@@ -10,7 +10,6 @@ class ClapTrap
         int _energyP;
         int _attackD;
         std::string _name;
-        std::string _type;
 
     public:
         ClapTrap();
@@ -21,10 +20,9 @@ class ClapTrap
         ClapTrap & operator=(const ClapTrap &other);
 
 
-        void attack(const std::string & target);
+        virtual void attack(const std::string & target);
         void takeDamage(unsigned int amount);
         void beRepaired(unsigned int amount);
-        void showStats();
 
         std::string getName();
         int getEnergyP();
@@ -33,5 +31,6 @@ class ClapTrap
 
         void setName(std::string name);
 
+        void showStats();
 } ;
 #endif

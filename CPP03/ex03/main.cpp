@@ -3,13 +3,15 @@
 
 int main(void)
 {
-    FragTrap cozKar("cozkar");
-    FragTrap deGen("degen");
+    DiamondTrap cozKar("cozkar");
+    DiamondTrap deGen("degen");
 
     cozKar.attack(deGen.getName());
     deGen.takeDamage(cozKar.getAttackD());
     deGen.beRepaired(1);
     deGen.highFivesGuys();
+    deGen.guardGate();
+    cozKar.whoAmI();
     
     return (0);
 }

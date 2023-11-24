@@ -1,12 +1,12 @@
 #include "ClapTrap.hpp"
 
 //CONSTRCUTORS AND DESTRUCTORS
-ClapTrap::ClapTrap(): _hitP(100), _energyP(50), _attackD(30), _name("nameless"), _type("ClavTrap")
+ClapTrap::ClapTrap(): _hitP(100), _energyP(50), _attackD(30), _name("nameless")
 {
     std::cout << "ClapTrap default constructor has been called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name): _hitP(100), _energyP(50), _attackD(30), _name(name), _type("ClavTrap")
+ClapTrap::ClapTrap(std::string name): _hitP(100), _energyP(50), _attackD(30), _name(name)
 {
     std::cout << "ClapTrap Overloaded constructor has been called" << std::endl;
 }
@@ -28,7 +28,6 @@ ClapTrap & ClapTrap::operator=(const ClapTrap &other)
     _energyP = other._energyP;
     _attackD = other._attackD;
     _name = other._name;
-    _type = other._type;
     return *this;
 }
 
@@ -36,12 +35,12 @@ ClapTrap & ClapTrap::operator=(const ClapTrap &other)
 void ClapTrap::attack(const std::string & target)
 {
     if (_hitP <= 0)
-        std::cout << _type << " " << _name << "is dead already!" << std::endl;
+        std::cout << "ClapTrap " << _name << "is dead already!" << std::endl;
     else if (_energyP <= 0)
-        std::cout << _type << " " << _name << "has no energy points to attack!" << std::endl;
+        std::cout << "ClapTrap " << _name << "has no energy points to attack!" << std::endl;
     else
     {
-        std::cout << _type << " " << _name << " attacks " << target << ", causing " << _attackD << " points of damage!" << std::endl;
+        std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attackD << " points of damage!" << std::endl;
         _energyP--;
         showStats();
     }
@@ -50,15 +49,15 @@ void ClapTrap::attack(const std::string & target)
 void ClapTrap::takeDamage(unsigned int amount)
 {
     if (_hitP <= 0)
-        std::cout << _type << " " << _name << "has no hit points to attack!" << std::endl;
+        std::cout << "ClapTrap " << _name << "has no hit points to attack!" << std::endl;
     else if ((int)amount > _hitP)
     {
         _hitP = 0;
-        std::cout << _type << " " << _name << "just got smacked down!" << std::endl;
+        std::cout << "ClapTrap " << _name << "just got smacked down!" << std::endl;
     }
     else
     {
-        std::cout << _type << " " << _name << " has taken damage by " << amount << "!." << std::endl;
+        std::cout << "ClapTrap " << _name << " has taken damage by " << amount << "!." << std::endl;
         _hitP -= amount;
         showStats();
     }
@@ -67,21 +66,21 @@ void ClapTrap::takeDamage(unsigned int amount)
 void ClapTrap::beRepaired(unsigned int amount)
 {
     if (_hitP <= 0)
-        std::cout << _type << " " << _name << "is dead already!" << std::endl;
+        std::cout << "ClapTrap " << " " << _name << "is dead already!" << std::endl;
     else if (_energyP <= 0)
-        std::cout << _type << " " << _name << "has no energy points to be repair itself!" << std::endl;
+        std::cout << "ClapTrap " << " " << _name << "has no energy points to be repair itself!" << std::endl;
     else
     {
-        std::cout << _type << " " << _name << " has repaired its health by " << amount << "!." << std::endl;
+        std::cout << "ClapTrap " << " " << _name << " has repaired its health by " << amount << "!." << std::endl;
         _hitP += amount;
         _energyP--;
         showStats();
     }
 }
 
-void ClapTrap::showStats() const
+void ClapTrap::showStats()
 {
-    std::cout << _type << " " << _name << " has " <<  _hitP << " hit points and " << _energyP << " energy points left!" << std::endl;
+    std::cout << "ClapTrap " << " " << _name << " has " <<  _hitP << " hit points and " << _energyP << " energy points left!" << std::endl;
 }
 
 
@@ -111,7 +110,5 @@ void ClapTrap::setName(std::string name)
 {
     _name = name;
 }
-
-
 
 

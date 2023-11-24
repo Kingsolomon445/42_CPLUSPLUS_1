@@ -4,14 +4,12 @@
 FragTrap::FragTrap(): ClapTrap()
 {
     std::cout << "FragTrap default constructor has been called!" << std::endl;
-    _type = "FragTrap";
     _name = "nameless";
 }
 
 FragTrap::FragTrap(std::string name): ClapTrap(name)
 {
     std::cout << "FragTrap overloaded constructor has been called!" << std::endl;
-    _type = "FragTrap";
     _name = name;
 }
 
@@ -34,13 +32,26 @@ FragTrap & FragTrap::operator=(const FragTrap &other)
     _energyP = other._energyP;
     _attackD = other._attackD;
     _name = other._name;
-    _type = other._type;
     return *this;
 }
 
 
 //MEMBER FUNCTION
+void FragTrap::attack(const std::string & target)
+{
+    if (_hitP <= 0)
+        std::cout << "FragTrap " << _name << "is dead already!" << std::endl;
+    else if (_energyP <= 0)
+        std::cout << "FragTrap " << _name << "has no energy points to attack!" << std::endl;
+    else
+    {
+        std::cout << "FragTrap " << _name << " attacks " << target << ", causing " << _attackD << " points of damage!" << std::endl;
+        _energyP--;
+        showStats();
+    }
+}
+
 void FragTrap::highFivesGuys(void)
 {
-    std::cout << _type << " " << _name << " high-five 🖐️🖐️🖐️🖐️🖐️ all warriors" << std::endl;
+    std::cout << "FragTrap " << _name << " high-five 🖐️🖐️🖐️🖐️🖐️ all warriors" << std::endl;
 }

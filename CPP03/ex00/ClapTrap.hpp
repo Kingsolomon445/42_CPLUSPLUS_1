@@ -10,7 +10,6 @@ class ClapTrap
         int _energyP;
         int _attackD;
         std::string _name;
-        std::string _type;
 
     public:
         ClapTrap();
