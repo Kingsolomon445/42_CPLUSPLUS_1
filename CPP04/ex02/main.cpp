@@ -49,6 +49,7 @@ int main()
     std::cout << "cat first idea: " << cat->getBrain()->getIdea(0) << std::endl;
     std::cout << "dog2 first idea: " << dog2.getBrain()->getIdea(0) << std::endl;
     std::cout << "cat2 first idea: " << cat2.getBrain()->getIdea(0) << std::endl;
+    
 
 
     return 0;

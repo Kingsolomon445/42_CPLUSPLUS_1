@@ -2,11 +2,11 @@
 
 //CONSTRUCTOR AND DESTRUCTOR
 Animal::Animal(): type("Animal") {
-    std::cout << "Animal constructor called" << std::endl;
+    // std::cout << "Animal constructor called" << std::endl;
 }
 
 Animal::~Animal() {
-    std::cout << "Animal destructor called" << std::endl;
+    // std::cout << "Animal destructor called" << std::endl;
 }
 
 //MEMBER FUNCTION

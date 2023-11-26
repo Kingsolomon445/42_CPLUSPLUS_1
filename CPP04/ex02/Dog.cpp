@@ -44,3 +44,8 @@ Brain *Dog::getBrain() const
 {
     return _brain;
 }
+
+std::string Dog::getType() const
+{
+    return type;
+}

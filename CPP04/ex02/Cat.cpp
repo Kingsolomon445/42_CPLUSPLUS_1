@@ -39,8 +39,13 @@ void Cat::makeSound() const
     std::cout << "MEOW MEOW MEOW MEOW MEOW!!!" << std::endl;
 }
 
-//GETTER
+//GETTERS
 Brain *Cat::getBrain() const
 {
     return _brain;
+}
+
+std::string Cat::getType() const
+{
+    return type;
 }

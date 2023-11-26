@@ -20,6 +20,7 @@ class Cat: public Animal
 
         void makeSound() const;
         Brain *getBrain() const;
+        std::string getType() const;
 } ;
 
 #endif
