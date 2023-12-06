@@ -3,7 +3,7 @@
 //CONSRUCTORS AND DESTRUCTOR
 Brain::Brain()
 {
-    // std::cout << "Brain constructor called!" << std::endl;
+    std::cout << "Brain default constructor called!" << std::endl;
     ideas = new std::string[100];
 }
 
@@ -14,19 +14,19 @@ Brain::Brain(const Brain &other)
     {
         ideas[i] = other.ideas[i];
     }
-    // std::cout << "Brain copy constructor called!" << std::endl;
+    std::cout << "Brain copy constructor called!" << std::endl;
 }
 
 Brain::~Brain()
 {
-    // std::cout << "Brain destructor called!" << std::endl;
+    std::cout << "Brain destructor called!" << std::endl;
     delete[] ideas;
 }
 
 //COPY ASSIGNMENT OPERATOR
 Brain & Brain::operator=(const Brain &other)
 {
-    // std::cout << "Brain copy assignment called!" << std::endl;
+    std::cout << "Brain copy assignment called!" << std::endl;
     if (this != &other)
     {
         delete[] ideas;

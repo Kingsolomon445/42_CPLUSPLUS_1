@@ -1,16 +1,16 @@
 #include "Ice.hpp"
 
-Ice::Ice()
+//CONSTRUCTORS AND DESTRUCTORS
+Ice::Ice(): AMateria("ice")
 {
-    std::cout << "Ice consrcutor called!" << std::endl;
     type = "ice";
 }
 
-Ice::~Ice()
-{
-    std::cout << "Ice destructor called!" << std::endl;
-}
+Ice::~Ice() {}
 
+Ice::Ice(const Ice & other): AMateria(other) {}
+
+//COPY ASSIGNMENT OPERATOR
 Ice & Ice::operator=(const Ice &other)
 {
     static_cast<void>(other);
@@ -18,14 +18,14 @@ Ice & Ice::operator=(const Ice &other)
 }
 
 
+//MEMBER FUNCTIONS
 AMateria* Ice::clone() const
 {
     Ice *newIceMateria = new Ice();
-    //Work on this
     return newIceMateria;
 }
 
 void Ice::use(ICharacter& target)
 {
-
+    std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }

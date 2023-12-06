@@ -1,30 +1,30 @@
 #include "Cure.hpp"
 
-Cure::Cure()
+//CONSTRUCTORS AND DESTRUCTORS
+Cure::Cure(): AMateria("cure")
 {
-    std::cout << "Cure consrcutor called!" << std::endl;
     type = "cure";
 }
 
-Cure::~Cure()
-{
-    std::cout << "Cure destructor called!" << std::endl;
-}
+Cure::~Cure() {}
 
+Cure::Cure(const Cure & other): AMateria(other) {}
+
+//COPY ASSIGNMENT OPERATOR
 Cure & Cure::operator=(const Cure &other)
 {
     static_cast<void>(other);
     return *this;
 }
 
+//MEMBER FUNCTIONS
 AMateria* Cure::clone() const
 {
     Cure *newIceMateria = new Cure();
-    //Work on this
     return newIceMateria;
 }
 
 void Cure::use(ICharacter& target)
 {
-
+    std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }

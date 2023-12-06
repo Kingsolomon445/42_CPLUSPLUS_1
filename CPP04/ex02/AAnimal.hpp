@@ -1,15 +1,15 @@
-#ifndef ANIMAL_H
-# define ANIMAL_H
+#ifndef AANIMAL_H
+# define AANIMAL_H
 
 #include <iostream>
 
-class Animal
+class AAnimal
 {
     protected:
         std::string type;
 
     public:
-        virtual ~Animal() {};
+        virtual ~AAnimal() {};
 
         virtual void makeSound() const = 0;
         virtual std::string getType() const = 0;

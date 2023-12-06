@@ -3,14 +3,14 @@
 //CONSTRUCTORS AND DESTRUCTORS
 Cat::Cat()
 {
-    // std::cout << "Cat constructor called!" << std::endl;
+    std::cout << "Cat default constructor called!" << std::endl;
     type = "Cat";
     _brain = new Brain();
 }
 
 Cat::Cat(const Cat & other)
 {
-    // std::cout << "Cat copy constructor called!" << std::endl;
+    std::cout << "Cat copy constructor called!" << std::endl;
     type = other.type;
     _brain = new Brain(*other._brain);
 }
@@ -18,13 +18,13 @@ Cat::Cat(const Cat & other)
 Cat::~Cat()
 {
     delete _brain;
-    // std::cout << "Cat destructor called!" << std::endl;
+    std::cout << "Cat destructor called!" << std::endl;
 }
 
 //COPY ASSIGNMENT OPERATOR
 Cat & Cat::operator=(const Cat &other)
 {
-    // std::cout << "Cat copy assignment called!" << std::endl;
+    std::cout << "Cat copy assignment operator called!" << std::endl;
     if (this != &other)
     {
         delete _brain;

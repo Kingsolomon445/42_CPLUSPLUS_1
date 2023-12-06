@@ -3,14 +3,14 @@
 //CONSTRUCTORS AND DESTRUCTORS
 Dog::Dog()
 {
-    // std::cout << "Dog constructor called" << std::endl;
+    std::cout << "Dog default constructor called" << std::endl;
     type = "Dog";
     _brain = new Brain();
 }
 
 Dog::Dog(const Dog & other)
 {
-    // std::cout << "Dog copy constructor called!" << std::endl;
+    std::cout << "Dog copy constructor called!" << std::endl;
     type = other.type;
     _brain = new Brain(*other._brain);
 }
@@ -18,13 +18,13 @@ Dog::Dog(const Dog & other)
 Dog::~Dog()
 {
     delete _brain;
-    // std::cout << "Dog destructor called" << std::endl;
+    std::cout << "Dog destructor called" << std::endl;
 }
 
 //COPY ASSIGNMENT OPERATOR
 Dog & Dog::operator=(const Dog &other)
 {
-    // std::cout << "Dog copy assignment called!" << std::endl;
+    std::cout << "Dog copy assignment operator called!" << std::endl;
     if (this != &other)
     {
         delete _brain;

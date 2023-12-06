@@ -1,11 +1,11 @@
 #ifndef DOG_H
 # define DOG_H
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 #include <iostream>
 
-class Dog: public Animal
+class Dog: public AAnimal
 {
     private:
         Brain *_brain;
