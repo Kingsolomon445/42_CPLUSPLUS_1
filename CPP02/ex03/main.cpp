@@ -1,12 +1,13 @@
 #include <iostream>
+#include <iomanip>
 #include "Fixed.hpp"
 #include "Point.hpp"
 
 int main( void ) {
-    Point a(0.0f, 0.0f);
-    Point b(10.0f, 30.0f);
-    Point c(20.0f, 0.0f);
-    Point p(10.0f, 15.0f);
+    Point a(0.05f, 0.0f);
+    Point b(8.0f, 15.07f);
+    Point c(23.5f, 12.9f);
+    Point p(5.0f, 8.45f);
 
     if (bsp(a, b, c, p))
         std::cout << "Point p lies inside the triangle" << std::endl;
@@ -15,3 +16,5 @@ int main( void ) {
 
     return (0);
 }
+
+
