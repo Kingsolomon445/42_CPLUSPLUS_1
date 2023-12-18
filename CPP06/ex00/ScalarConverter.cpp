@@ -2,6 +2,17 @@
 
 ScalarConverter::ScalarConverter() {}
 
+ScalarConverter::ScalarConverter(const ScalarConverter & other)
+{
+    static_cast<void>(other);
+}
+
+ScalarConverter & ScalarConverter::operator=(const ScalarConverter & other)
+{
+    static_cast<void>(other);
+    return *this;
+}
+
 ScalarConverter::~ScalarConverter() {}
 
 int checkType(std::string str)
@@ -66,7 +77,7 @@ void ScalarConverter::convert(std::string stringRep)
     }
     if (intVal < 0)
         std::cout << "char: impossible" << std::endl;
-    else if (charVal < 32 || charVal > 126)
+    else if (intVal < 32 || intVal > 126)
         std::cout << "char: Non displayable" << std::endl;
     else
         std::cout << "char: " << charVal << std::endl;

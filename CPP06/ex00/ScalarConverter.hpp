@@ -10,12 +10,12 @@ class ScalarConverter
 {
     private:
         ScalarConverter();
+        ScalarConverter(const ScalarConverter & other);
+        ScalarConverter & operator=(const ScalarConverter & other);
 
     public:
-        // ScalarConverter(const ScalarConverter & other);
         ~ScalarConverter();
 
-        // ScalarConverter & operator=(const ScalarConverter & other);
 
         static void convert (std::string stringRep);
 } ;
