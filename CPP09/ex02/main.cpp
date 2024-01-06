@@ -20,6 +20,3 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-
-// https://www.geeksforgeeks.org/sorting-by-combining-insertion-sort-and-merge-sort-algorithms/
-// https://iq.opengenus.org/merge-insertion-sort/

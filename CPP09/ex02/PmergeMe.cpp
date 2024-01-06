@@ -74,7 +74,7 @@ static void insertionSortVector(int begin, int end)
 
 static void sortVector(int begin, int end)
 {
-    if (begin - end > K)
+    if (end - begin > K)
     {
         int mid = begin + (end - begin) / 2;
         sortVector(begin, mid);
@@ -232,7 +232,7 @@ void parseArg(char *argv[])
         myDeque.push_back(no);
         i++;
     }
-    K = myVec.size() / 30;
+    K = std::max(1, static_cast<int>(myVec.size() / 30));
 }
 
 void checkArg(char *argv[])
