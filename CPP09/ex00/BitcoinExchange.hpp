@@ -14,7 +14,7 @@
 class BitcoinExchange
 {
     private:
-        std::map<std::string, float> _btcEx;
+        std::map<std::string, double> _btcEx;
 
     public:
         BitcoinExchange();
@@ -22,8 +22,8 @@ class BitcoinExchange
         BitcoinExchange(const BitcoinExchange & other);
         BitcoinExchange & operator=(const BitcoinExchange & other);
 
-        void mapExchange(std::map<std::string, float> & btcEx);
-        std::map<std::string, float> &getBtcEx();
+        void mapExchange(std::map<std::string, double> & btcEx);
+        std::map<std::string, double> &getBtcEx();
 } ;
 
 #endif

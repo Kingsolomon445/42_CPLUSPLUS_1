@@ -15,12 +15,12 @@ BitcoinExchange & BitcoinExchange::operator=(const BitcoinExchange & other)
 
 BitcoinExchange::~BitcoinExchange() {}
 
-void BitcoinExchange::mapExchange(std::map<std::string, float> & btcEx)
+void BitcoinExchange::mapExchange(std::map<std::string, double> & btcEx)
 {
     _btcEx = btcEx;
 }
 
-std::map<std::string, float> &BitcoinExchange::getBtcEx()
+std::map<std::string, double> &BitcoinExchange::getBtcEx()
 {
     return _btcEx;
 }

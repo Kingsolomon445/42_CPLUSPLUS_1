@@ -3,7 +3,7 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.o)
-NAME = func
+NAME = easyfind
 
 all: $(NAME)
 

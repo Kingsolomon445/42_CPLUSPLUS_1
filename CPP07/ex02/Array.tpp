@@ -1,7 +1,7 @@
 #include "Array.hpp"
 
 template <typename T>
-Array<T>::Array():_arr(new T[1]), _size(0) {}
+Array<T>::Array():_arr(new T), _size(0) {}
 
 
 template <typename T>

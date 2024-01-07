@@ -20,14 +20,14 @@ bool isLowerThanFirstDate(std::string &firstDate, std::string &currDate)
     return currTm.tm_mday < firstTm.tm_mday;
 }
 
-bool isValid(float number)
+bool isValid(double number)
 {
     if (number < 0)
     {
         std::cout << "Error: not a positive number." << std::endl;
         return 0;
     }
-    if (number > std::numeric_limits<int>::max())
+    if (number > 1000)
     {
         std::cout << "Error: too large a number." << std::endl;
         return 0;
@@ -58,42 +58,43 @@ void getCurrValue(BitcoinExchange & btc, const char *fName)
     std::string date;
     std::string value;
     std::fstream finArg;
-    std::map<std::string, float> btcEx;
+    std::map<std::string, double> btcEx;
 
     finArg.open(fName, std::ios::in);
     btcEx = btc.getBtcEx();
+    std::getline(finArg, line);
     while (std::getline(finArg, line) && !line.empty())
     {
         std::stringstream s(line);
         if (!std::getline(s, date, '|') || !std::getline(s, value, '|'))
         {
-            std::cout << "Error: bad input." << std::endl;
+            std::cout << "Error: bad input => " << s.str() << std::endl;
             continue;
         }
         date.erase(std::remove_if(date.begin(), date.end(), isspace), date.end());
         value.erase(std::remove_if(value.begin(), value.end(), isspace), value.end());
         if (date.empty() || value.empty())
         {
-            std::cout << "Error: bad input." << std::endl;
+            std::cout << "Error: bad input => " << s.str() << std::endl;
             continue;
         }
         std::stringstream ss;
         ss << value;
-        float floatVal;
-        ss >> floatVal;
-        if (!isValid(floatVal))
+        double doubleVal;
+        ss >> doubleVal;
+        if (!isValid(doubleVal))
             continue;
         std::string firstDate = btcEx.begin()->first;
-        std::map<std::string, float>::iterator it = btcEx.find(date);
+        std::map<std::string, double>::iterator it = btcEx.find(date);
         while (it == btcEx.end() && !isLowerThanFirstDate(firstDate, date))
         {
             date = getPreviousDate(date);
             it = btcEx.find(date);
         }
         if (it != btcEx.end())
-            std::cout << date << " => " << value << " = " << floatVal * it->second << std::endl; 
+            std::cout << date << " => " << value << " = " << doubleVal * it->second << std::endl; 
         else
-            std::cout << "Date doesn't exist!";
+            std::cout << "Date: " << date << " or earlier doesn't exist!" << std::endl;
     }
 }
 
@@ -101,10 +102,13 @@ void getCurrValue(BitcoinExchange & btc, const char *fName)
 int main(int argc, char *argv[])
 {
     if (argc != 2)
+    {
+        std::cout << "Wrong number of arguments" << std::endl;
         return 1;
+    }
     BitcoinExchange btc;
     std::fstream fin;
-    std::map<std::string, float>  btcEx;
+    std::map<std::string, double>  btcEx;
     fin.open("data.csv", std::ios::in);
 
     std::string line;
