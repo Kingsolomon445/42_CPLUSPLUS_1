@@ -8,11 +8,26 @@
 #include <sstream>
 #include <ctime>
 
-void parseArg(char *argv[]);
-void checkArg(char *argv[]);
-void printUnsorted();
-void printSorted();
-void printTimeTaken();
-void sortArg(std::string container_type);
+class PmergeMe
+{
+    private:
+        static double dequeMilliSec;
+        static double vecMilliSec;
+        static int K;
+    
+    public:
+        PmergeMe();
+        PmergeMe(const PmergeMe & other);
+        ~PmergeMe();
+
+        PmergeMe & operator=(const PmergeMe & other);
+
+        static void parseArg(std::vector<std::vector<int> > & myVec, std::deque<std::deque<int> > & myDeque, char *argv[]);
+        static void sortVectorPairs(std::vector<std::vector<int> > & myVec);
+        static void sortDequePairs(std::deque<std::deque<int> > & myDeque);
+        static void checkArg(char *argv[]);
+
+} ;
+
 
 #endif

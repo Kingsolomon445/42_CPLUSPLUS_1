@@ -2,17 +2,17 @@
 
 int main(int argc, char *argv[])
 {
+    std::vector<std::vector<int> > myVec;
+    std::deque<std::deque<int> > myDeque;
+
     if (argc < 1)
         return 1;
     try
     {
-        checkArg(argv);
-        parseArg(argv);
-        printUnsorted();
-        sortArg("vector");
-        sortArg("deque");
-        printSorted();
-        printTimeTaken();
+        PmergeMe::checkArg(argv);
+        PmergeMe::parseArg(myVec, myDeque, argv);
+        PmergeMe::sortVectorPairs(myVec);
+        PmergeMe::sortDequePairs(myDeque);
     }
     catch(const std::exception& e)
     {
