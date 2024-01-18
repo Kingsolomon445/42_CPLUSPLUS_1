@@ -1,7 +1,7 @@
 #include "BitcoinExchange.hpp"
 #include <limits>
 
-bool isLowerThanFirstDate(std::string &firstDate, std::string &currDate)
+static bool isLowerThanFirstDate(std::string &firstDate, std::string &currDate)
 {
     std::tm currTm = {};
     std::sscanf(currDate.c_str(), "%d-%d-%d", &currTm.tm_year, &currTm.tm_mon, &currTm.tm_mday);
@@ -20,19 +20,21 @@ bool isLowerThanFirstDate(std::string &firstDate, std::string &currDate)
     return currTm.tm_mday < firstTm.tm_mday;
 }
 
-bool isValid(double number)
+static double toDouble(std::string str)
 {
-    if (number < 0)
+    if (str[0] == '+' || str[0] == '-')
     {
-        std::cout << "Error: not a positive number." << std::endl;
-        return 0;
+        if (str[0] == '-')
+            throw std::runtime_error("Error: not a positive number.");
+        str.erase(0, 1);
     }
-    if (number > 1000)
-    {
-        std::cout << "Error: too large a number." << std::endl;
-        return 0;
-    }
-    return 1;
+    char *checkptr;
+    double result = strtod(str.c_str(), &checkptr);
+    if (*checkptr)
+        throw std::runtime_error("Error: not a valid number.");
+    if (result > 1000)
+        throw std::runtime_error("Error: too large a number.");
+    return result;
 }
 
 std::string getPreviousDate(std::string currDate)
@@ -78,12 +80,17 @@ void getCurrValue(BitcoinExchange & btc, const char *fName)
             std::cout << "Error: bad input => " << s.str() << std::endl;
             continue;
         }
-        std::stringstream ss;
-        ss << value;
         double doubleVal;
-        ss >> doubleVal;
-        if (!isValid(doubleVal))
+        try
+        {
+            doubleVal = toDouble(value);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
             continue;
+        }
+        
         std::string firstDate = btcEx.begin()->first;
         std::map<std::string, double>::iterator it = btcEx.find(date);
         while (it == btcEx.end() && !isLowerThanFirstDate(firstDate, date))

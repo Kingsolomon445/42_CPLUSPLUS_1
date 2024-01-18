@@ -2,6 +2,7 @@
 
 int main(int argc, char *argv[])
 {
+    std::list<int> operands;
     if (argc != 2)
     {
         std::cout << "Wrong number of arguments!";
@@ -9,7 +10,7 @@ int main(int argc, char *argv[])
     }
     try
     {
-        sortOps(argv[1]);
+        RPN::sortOps(operands, argv[1]);
     }
     catch(const std::exception& e)
     {

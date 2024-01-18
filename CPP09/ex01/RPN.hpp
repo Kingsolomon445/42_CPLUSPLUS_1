@@ -11,8 +11,17 @@
 #include <stdexcept>
 #include <string>
 
-void sortOps(std::string opArg);
-int searchOp(std::string op);
-void runOps();
+class RPN
+{
+    private:
+        RPN();
+        RPN(const RPN & other);
+        ~RPN();
+
+        RPN & operator=(const RPN & other);
+
+    public:
+        static void sortOps(std::list<int> &operands, std::string opArg);
+};
 
 #endif

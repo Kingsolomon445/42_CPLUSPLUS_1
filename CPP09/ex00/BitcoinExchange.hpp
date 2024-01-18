@@ -9,6 +9,7 @@
 #include <map>
 #include <ctime>
 #include <iomanip>
+#include <cstdlib>
 
 
 class BitcoinExchange

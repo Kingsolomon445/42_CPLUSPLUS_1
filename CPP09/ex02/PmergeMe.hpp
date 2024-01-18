@@ -11,21 +11,28 @@
 class PmergeMe
 {
     private:
-        static double dequeMilliSec;
-        static double vecMilliSec;
-        static int K;
-    
-    public:
+        static int isStruggler;
+        static int _struggler;
+        static int _K;
         PmergeMe();
         PmergeMe(const PmergeMe & other);
         ~PmergeMe();
 
         PmergeMe & operator=(const PmergeMe & other);
-
-        static void parseArg(std::vector<std::vector<int> > & myVec, std::deque<std::deque<int> > & myDeque, char *argv[]);
-        static void sortVectorPairs(std::vector<std::vector<int> > & myVec);
-        static void sortDequePairs(std::deque<std::deque<int> > & myDeque);
-        static void checkArg(char *argv[]);
+    
+    public:
+        static int isVecSorted(std::vector<int> & unsorted);
+        static int isDequeSorted(std::deque<int> & unsorted);
+        static void printSortedVec(std::vector<int> & sortedVec);
+        static void printSortedDeque(std::deque<int> & sortedDeque);
+        static void parseVectorArg(std::vector<std::vector<int> > & myVec, std::vector<int> & unsorted);
+        static void parseDequeArg(std::deque<std::deque<int> > & myDeque, std::deque<int> & unsorted);
+        static void sortVectorPairs(std::vector<std::vector<int> > & myVec, int begin, int end);
+        static void sortDequePairs(std::deque<std::deque<int> > & myDeque, int begin, int end);
+        static void createVectorMainChainAndPend(std::vector<std::vector<int> > & myVec, std::vector<int> & mainChain, std::vector<int> & pend);
+        static void createDequeMainChainAndPend(std::deque<std::deque<int> > & myDeque, std::deque<int> & mainChain, std::deque<int> & pend);
+        static void insertionSortVector(std::vector<int> & mainChain, std::vector<int> & pend);
+        static void insertionSortDeque(std::deque<int> & mainChain, std::deque<int> & pend);
 
 } ;
 
