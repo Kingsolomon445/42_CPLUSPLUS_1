@@ -20,20 +20,37 @@ static bool isLowerThanFirstDate(std::string &firstDate, std::string &currDate)
     return currTm.tm_mday < firstTm.tm_mday;
 }
 
+static bool isHigherThanLastDate(std::string &lastDate, std::string &currDate)
+{
+    std::tm currTm = {};
+    std::sscanf(currDate.c_str(), "%d-%d-%d", &currTm.tm_year, &currTm.tm_mon, &currTm.tm_mday);
+    currTm.tm_year -= 1900;
+    currTm.tm_mon--;
+
+    std::tm lastTm = {};
+    std::sscanf(lastDate.c_str(), "%d-%d-%d", &lastTm.tm_year, &lastTm.tm_mon, &lastTm.tm_mday);
+    lastTm.tm_year -= 1900;
+    lastTm.tm_mon--;
+
+    if (currTm.tm_year != lastTm.tm_year)
+        return currTm.tm_year > lastTm.tm_year;
+    if (currTm.tm_mon != lastTm.tm_mon)
+        return currTm.tm_mon > lastTm.tm_mon;
+    return currTm.tm_mday > lastTm.tm_mday;
+}
+
 static double toDouble(std::string str)
 {
     if (str[0] == '+' || str[0] == '-')
     {
         if (str[0] == '-')
-            throw std::runtime_error("Error: not a positive number.");
+            throw std::runtime_error("Error: not a positive number!");
         str.erase(0, 1);
     }
     char *checkptr;
     double result = strtod(str.c_str(), &checkptr);
     if (*checkptr)
-        throw std::runtime_error("Error: not a valid number.");
-    if (result > 1000)
-        throw std::runtime_error("Error: too large a number.");
+        throw std::runtime_error("Error: not a valid number!");
     return result;
 }
 
@@ -42,7 +59,7 @@ std::string getPreviousDate(std::string currDate)
     std::tm tm = {};
     std::sscanf(currDate.c_str(), "%d-%d-%d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
     tm.tm_year -= 1900;
-    tm.tm_mon--;
+    tm.tm_mon -= 1;
 
     std::time_t time = std::mktime(&tm);
     time -= 86400;
@@ -51,6 +68,26 @@ std::string getPreviousDate(std::string currDate)
     std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", newTm);
     std::string previousDate(buffer);
     return previousDate;
+}
+
+int CheckDateFormat(std::string &date)
+{
+    std::tm tm = {};
+    std::sscanf(date.c_str(), "%d-%d-%d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
+    tm.tm_year -= 1900;
+    tm.tm_mon--;
+    if (std::mktime(&tm) == -1)
+        return 0;
+    return (1);
+}
+
+int cleanValues(std::string & value1, std::string & value2)
+{
+    value1.erase(std::remove_if(value1.begin(), value1.end(), isspace), value1.end());
+    value2.erase(std::remove_if(value2.begin(), value2.end(), isspace), value2.end());
+    if (value1.empty() || value2.empty())
+        return 0;
+    return 1;
 }
 
 
@@ -73,9 +110,12 @@ void getCurrValue(BitcoinExchange & btc, const char *fName)
             std::cout << "Error: bad input => " << s.str() << std::endl;
             continue;
         }
-        date.erase(std::remove_if(date.begin(), date.end(), isspace), date.end());
-        value.erase(std::remove_if(value.begin(), value.end(), isspace), value.end());
-        if (date.empty() || value.empty())
+        if (!cleanValues(date, value))
+        {
+            std::cout << "Error: bad input => " << s.str() << std::endl;
+            continue;
+        }
+        if (!CheckDateFormat(date))
         {
             std::cout << "Error: bad input => " << s.str() << std::endl;
             continue;
@@ -84,6 +124,8 @@ void getCurrValue(BitcoinExchange & btc, const char *fName)
         try
         {
             doubleVal = toDouble(value);
+            if (doubleVal > 1000)
+                throw std::runtime_error("Eroor: too large a number");
         }
         catch(const std::exception& e)
         {
@@ -91,6 +133,9 @@ void getCurrValue(BitcoinExchange & btc, const char *fName)
             continue;
         }
         
+        std::string lastDate = (--btcEx.end())->first;
+        if (isHigherThanLastDate(lastDate, date))
+            date = lastDate;
         std::string firstDate = btcEx.begin()->first;
         std::map<std::string, double>::iterator it = btcEx.find(date);
         while (it == btcEx.end() && !isLowerThanFirstDate(firstDate, date))
@@ -113,26 +158,46 @@ int main(int argc, char *argv[])
         std::cout << "Wrong number of arguments" << std::endl;
         return 1;
     }
-    BitcoinExchange btc;
-    std::fstream fin;
-    std::map<std::string, double>  btcEx;
-    fin.open("data.csv", std::ios::in);
-
-    std::string line;
-    std::string date;
-    std::string exchangeRate;
-    std::string value;
-    std::string tmp;
-    while (std::getline(fin, line) && !line.empty())
+    try
     {
+        BitcoinExchange btc;
+        std::fstream fin;
+        std::map<std::string, double>  btcEx;
+        fin.open("data.csv", std::ios::in);
+
+        std::string line;
+        std::string date;
+        std::string exchangeRate;
+        std::string value;
+        std::string tmp;
+
+        std::getline(fin, line);
         std::stringstream s(line);
-        std::getline(s, date, ',');
-        std::getline(s, exchangeRate, ',');
-        std::stringstream ss;
-        ss << exchangeRate;
-        ss >> btcEx[date];
+        if (line.empty() || !std::getline(s, date, ',') || !std::getline(s, exchangeRate, ','))
+            throw (std::runtime_error("Wrong csv data format"));
+        if (date != "date" || exchangeRate != "exchange_rate")
+            throw (std::runtime_error("Wrong csv data titles!"));
+        while (std::getline(fin, line) && !line.empty())
+        {
+            std::stringstream s(line);
+            if (!std::getline(s, date, ',') || !std::getline(s, exchangeRate, ','))
+                throw (std::runtime_error("Wrong data format!"));
+            if (!cleanValues(date, exchangeRate))
+                throw (std::runtime_error("Empty Values!"));
+            if (!CheckDateFormat(date))
+                throw (std::runtime_error("Invalid Date!"));
+            double val = toDouble(exchangeRate);
+            btcEx[date] = val;
+        }
+        if (btcEx.empty())
+            throw (std::runtime_error("Database is empty!"));
+        btc.mapExchange(btcEx);
+        getCurrValue(btc, argv[1]);
     }
-    btc.mapExchange(btcEx);
-    getCurrValue(btc, argv[1]);
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
     return 0;
 }
