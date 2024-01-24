@@ -159,14 +159,14 @@ void PmergeMe::createVectorMainChainAndPend(std::vector<std::vector<int> > & myV
 static int binarySearchVector(std::vector<int> & mainChain, int item, int low, int high)
 {
     if (high <= low)
-        return item > mainChain[low] ? (low + 1) : low;
+        return low;
     
     int mid  = (low + high) / 2;
     if (item == mainChain[mid])
         return mid + 1;
     if (item > mainChain[mid])
         return binarySearchVector(mainChain, item, mid + 1, high);
-    return binarySearchVector(mainChain, item, low, mid - 1);
+    return binarySearchVector(mainChain, item, low, mid);
 }
 
 void PmergeMe::insertionSortVector(std::vector<int> & mainChain, std::vector<int> & pend)
@@ -202,7 +202,6 @@ int PmergeMe::isDequeSorted(std::deque<int> & unsorted)
         sortedVecIt++;
         unsortedIt++;
     }
-    // PmergeMe::printSortedDeque(unsorted);
     return 1;
 }
 
@@ -297,14 +296,15 @@ void PmergeMe::createDequeMainChainAndPend(std::deque<std::deque<int> > & myDequ
 static int binarySearchDeque(std::deque<int> & mainChain, int item, int low, int high)
 {
     if (high <= low)
-        return item > mainChain[low] ? (low + 1) : low;
+        return low;
     
     int mid  = (low + high) / 2;
+
     if (item == mainChain[mid])
         return mid + 1;
     if (item > mainChain[mid])
         return binarySearchDeque(mainChain, item, mid + 1, high);
-    return binarySearchDeque(mainChain, item, low, mid - 1);
+    return binarySearchDeque(mainChain, item, low, mid);
 }
 
 
