@@ -85,6 +85,8 @@ void RPN::sortOps(std::list<int> & operands, std::string opArg)
             int operand;
             ssOperand << tok;
             ssOperand >> operand;
+            if (operand >= 10)
+                throw std::runtime_error("Error");
             operands.push_front(operand);
         }
     }

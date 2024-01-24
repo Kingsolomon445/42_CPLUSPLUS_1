@@ -76,6 +76,7 @@ int CheckDateFormat(std::string &date)
     std::sscanf(date.c_str(), "%d-%d-%d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
     tm.tm_year -= 1900;
     tm.tm_mon--;
+    std::cout << "\nYear: " << tm.tm_year << "\nMonth: " << tm.tm_mon << "\nDay: " << tm.tm_mday << std::endl;
     if (std::mktime(&tm) == -1)
         return 0;
     return (1);
